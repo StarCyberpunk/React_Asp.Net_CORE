@@ -1,0 +1,4 @@
+C:\Users\notma\source\repos\ReactSite.Frontend\ReactSite.Frontend\obj\Debug\reactsite.frontend.esproj.SuggestedBindingRedirects.cache
+C:\Users\notma\source\repos\ReactSite.Frontend\ReactSite.Frontend\obj\Debug\reactsite.frontend.esproj.CoreCompileInputs.cache
+C:\Users\notma\source\repos\ReactSite\ReactSite.Frontend\obj\Debug\reactsite.frontend.esproj.SuggestedBindingRedirects.cache
+C:\Users\notma\source\repos\ReactSite\ReactSite.Frontend\obj\Debug\reactsite.frontend.esproj.CoreCompileInputs.cache
