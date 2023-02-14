@@ -1,0 +1,12 @@
+C:\Users\notma\source\repos\ReactSite\reactsite.Domain\bin\Debug\net6.0\reactsite.Domain.deps.json
+C:\Users\notma\source\repos\ReactSite\reactsite.Domain\bin\Debug\net6.0\reactsite.Domain.dll
+C:\Users\notma\source\repos\ReactSite\reactsite.Domain\bin\Debug\net6.0\reactsite.Domain.pdb
+C:\Users\notma\source\repos\ReactSite\reactsite.Domain\obj\Debug\net6.0\reactsite.Domain.csproj.AssemblyReference.cache
+C:\Users\notma\source\repos\ReactSite\reactsite.Domain\obj\Debug\net6.0\reactsite.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\notma\source\repos\ReactSite\reactsite.Domain\obj\Debug\net6.0\reactsite.Domain.AssemblyInfoInputs.cache
+C:\Users\notma\source\repos\ReactSite\reactsite.Domain\obj\Debug\net6.0\reactsite.Domain.AssemblyInfo.cs
+C:\Users\notma\source\repos\ReactSite\reactsite.Domain\obj\Debug\net6.0\reactsite.Domain.csproj.CoreCompileInputs.cache
+C:\Users\notma\source\repos\ReactSite\reactsite.Domain\obj\Debug\net6.0\reactsite.Domain.dll
+C:\Users\notma\source\repos\ReactSite\reactsite.Domain\obj\Debug\net6.0\refint\reactsite.Domain.dll
+C:\Users\notma\source\repos\ReactSite\reactsite.Domain\obj\Debug\net6.0\reactsite.Domain.pdb
+C:\Users\notma\source\repos\ReactSite\reactsite.Domain\obj\Debug\net6.0\ref\reactsite.Domain.dll

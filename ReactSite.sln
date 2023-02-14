@@ -4,8 +4,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reactsite.frontend", "ReactSite.Frontend\reactsite.frontend.esproj", "{A0EE1A1A-5329-4FF2-B2F7-31A034897C3A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{202FF44F-7357-4F40-9C7D-07E7F62D187C} = {202FF44F-7357-4F40-9C7D-07E7F62D187C}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "reactsite.backend", "reactsite.backend\reactsite.backend.csproj", "{202FF44F-7357-4F40-9C7D-07E7F62D187C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{32FE1549-C705-4BDA-8A29-B48E63F2C6C1} = {32FE1549-C705-4BDA-8A29-B48E63F2C6C1}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "reactsite.Domain", "reactsite.Domain\reactsite.Domain.csproj", "{32FE1549-C705-4BDA-8A29-B48E63F2C6C1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "reactsite.Service", "reactsite.Service\reactsite.Service.csproj", "{697F768A-78BF-43CC-B8DF-52F1D1DBB470}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "reactsite.DAL", "reactsite.DAL\reactsite.DAL.csproj", "{DA1726D7-A6D6-4F28-BC89-292B78E28B66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +35,18 @@ Global
 		{202FF44F-7357-4F40-9C7D-07E7F62D187C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{202FF44F-7357-4F40-9C7D-07E7F62D187C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{202FF44F-7357-4F40-9C7D-07E7F62D187C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32FE1549-C705-4BDA-8A29-B48E63F2C6C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32FE1549-C705-4BDA-8A29-B48E63F2C6C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32FE1549-C705-4BDA-8A29-B48E63F2C6C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32FE1549-C705-4BDA-8A29-B48E63F2C6C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{697F768A-78BF-43CC-B8DF-52F1D1DBB470}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{697F768A-78BF-43CC-B8DF-52F1D1DBB470}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{697F768A-78BF-43CC-B8DF-52F1D1DBB470}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{697F768A-78BF-43CC-B8DF-52F1D1DBB470}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA1726D7-A6D6-4F28-BC89-292B78E28B66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA1726D7-A6D6-4F28-BC89-292B78E28B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA1726D7-A6D6-4F28-BC89-292B78E28B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA1726D7-A6D6-4F28-BC89-292B78E28B66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

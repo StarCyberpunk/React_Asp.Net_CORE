@@ -1,0 +1,17 @@
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\bin\Debug\net6.0\reactsite.Service.deps.json
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\bin\Debug\net6.0\reactsite.Service.dll
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\bin\Debug\net6.0\reactsite.Service.pdb
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\bin\Debug\net6.0\reactsite.DAL.dll
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\bin\Debug\net6.0\reactsite.Domain.dll
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\bin\Debug\net6.0\reactsite.DAL.pdb
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\bin\Debug\net6.0\reactsite.Domain.pdb
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\obj\Debug\net6.0\reactsite.Service.csproj.AssemblyReference.cache
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\obj\Debug\net6.0\reactsite.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\obj\Debug\net6.0\reactsite.Service.AssemblyInfoInputs.cache
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\obj\Debug\net6.0\reactsite.Service.AssemblyInfo.cs
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\obj\Debug\net6.0\reactsite.Service.csproj.CoreCompileInputs.cache
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\obj\Debug\net6.0\reactsite.Service.csproj.CopyComplete
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\obj\Debug\net6.0\reactsite.Service.dll
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\obj\Debug\net6.0\refint\reactsite.Service.dll
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\obj\Debug\net6.0\reactsite.Service.pdb
+C:\Users\notma\source\repos\ReactSite\reactsite.Service\obj\Debug\net6.0\ref\reactsite.Service.dll
