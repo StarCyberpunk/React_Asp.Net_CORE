@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "weBZe1h7uc5oExNAV0oR7x9KauYMEk+oN+Koxr6ZJEew79oHUnJ91V7G9CdIohZz1Do8bLReMo5R1FEH1PN7Gw==",
+  "dgSpecHash": "aNc7Wa2c5P+XijEAlf5rZjtoCVhOtFXgzfPTIkKiblY/tQYXuQxF2DusgPH71toGpHWYuKha4YD9b93KvXjeyA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\notma\\source\\repos\\ReactSite\\reactsite.backend\\reactsite.backend.csproj",
+  "projectFilePath": "C:\\Users\\notma\\source\\repos\\React_Asp.Net_CORE\\reactsite.backend\\reactsite.backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\notma\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\notma\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
