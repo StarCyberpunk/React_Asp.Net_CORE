@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reactsite.frontend", "ReactSite.Frontend\reactsite.frontend.esproj", "{A0EE1A1A-5329-4FF2-B2F7-31A034897C3A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{202FF44F-7357-4F40-9C7D-07E7F62D187C} = {202FF44F-7357-4F40-9C7D-07E7F62D187C}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "reactsite.backend", "reactsite.backend\reactsite.backend.csproj", "{202FF44F-7357-4F40-9C7D-07E7F62D187C}"
 	ProjectSection(ProjectDependencies) = postProject

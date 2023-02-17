@@ -8,15 +8,18 @@ namespace reactsite.DAL
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-       : base(options)
+: base(options)
         {
-
-
+            
         }
-       
+
         public DbSet<User> Users { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<DailyTasks> DailyTasks { get; set; }
+        public DbSet<Activity> Activity { get; set; }
+
        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Admin
@@ -42,7 +45,13 @@ namespace reactsite.DAL
                      .HasPrincipalKey<User>(x => x.Id)
                      .OnDelete(DeleteBehavior.Cascade);
 
-               
+                builder.HasOne(x => x.DailyTasks)
+                    .WithOne(x => x.User)
+                    .HasPrincipalKey<User>(x => x.Id)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+
+
             });
             //DefaultUser
             modelBuilder.Entity<User>(builder =>
@@ -76,8 +85,26 @@ namespace reactsite.DAL
                     UserId = 1
                 });
             });
+            modelBuilder.Entity<DailyTasks>(builder =>
+            {
+                builder.ToTable("DailyTasks").HasKey(x => x.Id);
 
-            
+                builder.HasData(new DailyTasks()
+                {
+                    Id = 1,
+                    UserId = 1
+                });
+            });
+
+            modelBuilder.Entity<Activity>(builder =>
+            {
+                builder.ToTable("Activity").HasKey(x => x.Id);
+
+                builder.HasOne(r => r.DailyTasks).WithMany(t => t.Activites)
+                    .HasForeignKey(r => r.DailyTasksId);
+            });
+
+
         }
 
     }

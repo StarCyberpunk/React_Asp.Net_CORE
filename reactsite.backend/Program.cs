@@ -28,6 +28,12 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IBaseRepository<Profile>, ProfileRepository>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 
+builder.Services.AddScoped<IBaseRepository<DailyTasks>, DailyTasksRepository>();
+builder.Services.AddScoped<IDailyTasksService, DailyTasksService>();
+
+builder.Services.AddScoped<IBaseRepository<Activity>, ActivityRepository>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
+
 builder.Services.AddControllers();
 
 
@@ -54,7 +60,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseAuthorization();
-app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

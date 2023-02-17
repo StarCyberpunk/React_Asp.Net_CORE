@@ -11,11 +11,11 @@ namespace reactsite.Domain.Entity
     public class User
     {
         public long Id { get; set; }
-        public string Password { get; set; }
-        public string Login { get; set; }
+        public string? Password { get; set; }
+        public string? Login { get; set; }
         public Role Role { get; set; }
-        public Profile Profile { get; set; }
-        public List<DailyTasks> DailysTasks { get; set; } 
-        
+        public Profile? Profile { get; set; }
+        public DailyTasks? DailyTasks { get; set; }
+
     }
 }

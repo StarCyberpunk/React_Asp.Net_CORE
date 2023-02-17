@@ -11,6 +11,7 @@ namespace reactsite.Domain.Entity
         public long Id { get; set; }
         public long UserId { get; set; }
         public DateTime Day { get; set; }
-        public List<Activity> Activites { get; set; }
+        public User? User { get; set; }
+        public List<Activity>? Activites { get; set; }
     }
 }
