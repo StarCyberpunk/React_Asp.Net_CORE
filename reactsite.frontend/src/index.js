@@ -8,6 +8,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Users from "./Components/Users";
+import "@progress/kendo-theme-material/dist/all.css";
+import "hammerjs";
 
 
 

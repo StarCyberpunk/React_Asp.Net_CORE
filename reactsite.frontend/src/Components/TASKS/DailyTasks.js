@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import DayTasks from "./DayTasks";
+import Donut from "./Donut";
 
 export default class DailyTasks extends Component {
     constructor(props) {
@@ -12,43 +14,19 @@ export default class DailyTasks extends Component {
     static render(items) {
 
         return (
-            <div className="dailytasks" >
 
+            <div className="container-fluid" >
+                <div className="row">
+                <div className="col-3">
 
                 {items.map(item =>
-
-                  <div ><h2> День:{item.day}</h2>
-
-                      <table class="table">
-                          <thead>
-                          <tr>
-                              <th scope="col">Название</th>
-                              <th scope="col">Дата начала</th>
-                              <th scope="col">Дата конца</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          {item.activites.map(act=>
-                              <tr>
-                                  <td>{act.name}</td>
-                                  <td>{act.dateBegin}</td>
-                                  <td>{act.dateEnd}</td>
-
-                              </tr>
-
-                          )}
-                          </tbody>
-                      </table>
-
-                  </div>
-
-
+                      <DayTasks item={item}/>
                 )}
-
-            <table>
-
-            </table>
-
+                </div>
+                <div className="col-5">
+                    <Donut />
+                </div>
+                </div>
             </div>
         );
     }
