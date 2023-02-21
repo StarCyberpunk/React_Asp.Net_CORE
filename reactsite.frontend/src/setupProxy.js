@@ -2,6 +2,7 @@
 
 const context = [
     "/user",
+    "/dailytasks"
 ];
 
 module.exports = function (app) {

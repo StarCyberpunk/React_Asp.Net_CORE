@@ -1,13 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import Main from './Main';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import $ from 'jquery';
+import Popper from 'popper.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import {BrowserRouter, Route, Router, Routes} from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import Users from "./Components/Users";
+
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  
-    <App />
-  
+    <React.StrictMode>
+        <BrowserRouter>
+      <Main/>
+        </BrowserRouter>
+    </React.StrictMode>
 );
 
 

@@ -17,7 +17,7 @@ namespace reactsite.backend.Controllers
         {
             _dts = d;
         }
-        [HttpGet(Name = "Daily")]
+        [HttpGet(Name = "DailyTasks")]
         public async Task<IEnumerable<DailyTasksViewModel>> Get()
         {
             var r = await _dts.GetDailyTask(1);
