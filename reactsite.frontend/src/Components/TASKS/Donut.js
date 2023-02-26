@@ -8,7 +8,7 @@ import {
 } from "@progress/kendo-react-charts";
 import { COLORS } from "./constants";
 
-// Graph data
+// https://dzen.ru/media/webformyself/vizualizaciia-dannyh-legkoe-postroenie-grafikov-react-608a46c8ba38c87e471e1059
 const applicationsStatusThisMonth = [
     {
         status: "Accepted",

@@ -39,6 +39,7 @@ namespace reactsite.Service.Implementations
                     return new BaseResponse<ClaimsIdentity>()
                     {
                         Description = "Пользователь с таким логином уже есть",
+                        StatusCode = StatusCode.NotFound
                     };
                 }
 
@@ -80,7 +81,8 @@ namespace reactsite.Service.Implementations
                 {
                     return new BaseResponse<ClaimsIdentity>()
                     {
-                        Description = "Пользователь не найден"
+                        Description = "Пользователь не найден",
+                        StatusCode = StatusCode.NotFound
                     };
                 }
 
@@ -88,7 +90,8 @@ namespace reactsite.Service.Implementations
                 {
                     return new BaseResponse<ClaimsIdentity>()
                     {
-                        Description = "Неверный пароль или логин"
+                        Description = "Неверный пароль или логин",
+                        StatusCode = StatusCode.WrongData
                     };
                 }
                 var result = Authenticate(user);

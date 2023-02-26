@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Profiler} from 'react';
 import ReactDOM from 'react-dom/client';
 import Main from './Main';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,17 +10,21 @@ import Navbar from "./Components/Navbar";
 import Users from "./Components/Users";
 import "@progress/kendo-theme-material/dist/all.css";
 import "hammerjs";
+import {Provider} from "react-redux";
+import store from "./Redux/index";
 
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+    <Provider store={store} >
     <React.StrictMode>
         <BrowserRouter>
       <Main/>
         </BrowserRouter>
     </React.StrictMode>
+    </Provider>
 );
 
 

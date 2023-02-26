@@ -23,6 +23,9 @@ function Navbar() {
                 <li className="nav-item">
                     <NavLink className="nav-link" to='/dailytasks'>Мой день</NavLink>
                 </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link" to='/signup'>Аккаунт</NavLink>
+                </li>
                 {/*<li className="nav-item">
                     <a className="nav-link disabled">Отключенная</a>
                 </li>*/}

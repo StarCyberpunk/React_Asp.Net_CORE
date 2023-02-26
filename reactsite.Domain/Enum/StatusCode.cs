@@ -11,6 +11,7 @@ namespace reactsite.Domain.Enum
         OK = 200,
         InternalServerError = 500,
         ErrorDB = 0,
-        NotFound = 404
+        NotFound = 404,
+        WrongData=403
     }
 }
