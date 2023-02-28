@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using reactsite.DAL.Interfaces;
 using reactsite.Domain.Entity;
 using reactsite.Domain.Enum;
@@ -9,6 +11,7 @@ using reactsite.Domain.ViewModels;
 using reactsite.Service.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -20,14 +23,16 @@ namespace reactsite.Service.Implementations
     {
         private readonly IBaseRepository<User> _userRepository;
         private readonly ILogger<AccountService> _logger;
+        private readonly IOptions<AuthOptions> _authOptions;
 
-        public AccountService(IBaseRepository<User> userRepository, ILogger<AccountService> logger)
+        public AccountService(IBaseRepository<User> userRepository, ILogger<AccountService> logger, IOptions<AuthOptions> at)
         {
             _userRepository = userRepository;
             _logger = logger;
+            _authOptions = at;
         }
 
-        public async Task<BaseResponse<ClaimsIdentity>> Register(RegisterViewModel model)
+        public async Task<BaseResponse<string>> Register(RegisterViewModel model)
         {
 
             try
@@ -36,7 +41,7 @@ namespace reactsite.Service.Implementations
                 var user = await _userRepository.Select().FirstOrDefaultAsync(x => x.Login == model.Login);
                 if (user != null)
                 {
-                    return new BaseResponse<ClaimsIdentity>()
+                    return new BaseResponse<string>()
                     {
                         Description = "Пользователь с таким логином уже есть",
                         StatusCode = StatusCode.NotFound
@@ -52,9 +57,9 @@ namespace reactsite.Service.Implementations
 
                 await _userRepository.Create(user);
 
-                var result = Authenticate(user);
+                var result = GenerateJWT(user);
 
-                return new BaseResponse<ClaimsIdentity>()
+                return new BaseResponse<string>()
                 {
                     Data = result,
                     Description = "Объект добавился",
@@ -64,7 +69,7 @@ namespace reactsite.Service.Implementations
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"[Register]: {ex.Message}");
-                return new BaseResponse<ClaimsIdentity>()
+                return new BaseResponse<string>()
                 {
                     Description = ex.Message,
                     StatusCode = StatusCode.InternalServerError
@@ -72,14 +77,14 @@ namespace reactsite.Service.Implementations
             }
         }
 
-        public async Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model)
+        public async Task<BaseResponse<string>> Login(LoginViewModel model)
         {
             try
             {
                 var user = await _userRepository.Select().FirstOrDefaultAsync(x => x.Login == model.Login);
                 if (user == null)
                 {
-                    return new BaseResponse<ClaimsIdentity>()
+                    return new BaseResponse<string>()
                     {
                         Description = "Пользователь не найден",
                         StatusCode = StatusCode.NotFound
@@ -88,15 +93,15 @@ namespace reactsite.Service.Implementations
 
                 if (user.Password != HashPasswordHelper.HashPassword(model.Password))
                 {
-                    return new BaseResponse<ClaimsIdentity>()
+                    return new BaseResponse<string>()
                     {
                         Description = "Неверный пароль или логин",
                         StatusCode = StatusCode.WrongData
                     };
                 }
-                var result = Authenticate(user);
+                var result = GenerateJWT(user);
 
-                return new BaseResponse<ClaimsIdentity>()
+                return new BaseResponse<string>()
                 {
                     Data = result,
                     StatusCode = StatusCode.OK
@@ -105,25 +110,12 @@ namespace reactsite.Service.Implementations
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"[Login]: {ex.Message}");
-                return new BaseResponse<ClaimsIdentity>()
+                return new BaseResponse<string>()
                 {
                     Description = ex.Message,
                     StatusCode = StatusCode.InternalServerError
                 };
             }
-        }
-
-
-
-        private ClaimsIdentity Authenticate(User user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
-            };
-            return new ClaimsIdentity(claims, "ApplicationCookie",
-                ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
         }
 
         public async Task<BaseResponse<IEnumerable<User>>> GetAllUsers()
@@ -179,6 +171,26 @@ namespace reactsite.Service.Implementations
 
                 return z;
             }
+        }
+        private string GenerateJWT(User user)
+        {
+            var authParams = _authOptions.Value;
+            var securityKey = authParams.GetSemmetricSecurityKey();
+            var credemtials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var claims = new List<Claim>()
+            {
+                new Claim(JwtRegisteredClaimNames.Email,user.Login),
+                new Claim(JwtRegisteredClaimNames.Sub,user.Id.ToString()),
+                new Claim("role",user.Role.ToString())
+            };
+            var token = new JwtSecurityToken(authParams.Issuer,
+                authParams.Audience,
+                claims,
+                expires: DateTime.Now.AddSeconds(authParams.TokenLifetime),
+                signingCredentials: credemtials
+                );
+            return new JwtSecurityTokenHandler().WriteToken(token);
+
         }
     }
 }

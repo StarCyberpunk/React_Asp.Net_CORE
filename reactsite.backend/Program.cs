@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using NLog.Web;
 using reactsite.DAL;
 using reactsite.DAL.Interfaces;
 using reactsite.DAL.Repositories;
 using reactsite.Domain.Entity;
+using reactsite.Domain.Helpers;
 using reactsite.Service.Implementations;
 using reactsite.Service.Interfaces;
 
@@ -20,6 +22,41 @@ builder.Host.UseNLog();
 
 var con = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(con));
+
+//AUTH
+var auth = builder.Configuration.GetSection("Auth");
+builder.Services.Configure<AuthOptions>(auth);
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builderr =>
+        {
+            builderr.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        }
+        );
+});
+var authOptions = auth.Get<AuthOptions>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer=authOptions.Issuer,
+            
+            ValidateAudience=true,
+            ValidAudience=authOptions.Audience,
+
+            ValidateLifetime=true,
+
+            IssuerSigningKey=authOptions.GetSemmetricSecurityKey(),
+            ValidateIssuerSigningKey=true
+
+        };
+    });
 
 
 builder.Services.AddScoped<IBaseRepository<User>, UserRepository>();
@@ -40,12 +77,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-        options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-    });
+
 
 var app = builder.Build();
 
@@ -59,7 +91,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseCors();
+
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

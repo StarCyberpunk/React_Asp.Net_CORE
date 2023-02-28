@@ -5,6 +5,8 @@ using reactsite.Domain.Entity;
 using reactsite.Service.Interfaces;
 using reactsite.Domain.ViewModels;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace reactsite.backend.Controllers
 {
@@ -13,14 +15,16 @@ namespace reactsite.backend.Controllers
     public class DailyTasksController : ControllerBase
     {
         private readonly IDailyTasksService _dts;
+        private long UserId=>long.Parse( User.Claims.Single(c=>c.Type==ClaimTypes.NameIdentifier).Value);
         public DailyTasksController(IDailyTasksService d)
         {
             _dts = d;
         }
         [HttpGet(Name = "DailyTasks")]
-        public async Task<IEnumerable<DailyTasksViewModel>> Get()
+        [Authorize(Roles = "Admin")]
+        public async Task<IEnumerable<DailyTasksViewModel>> GetDailyTasks()
         {
-            var r = await _dts.GetDailyTask(1);
+            var r = await _dts.GetDailyTask(UserId);
             List<DailyTasksViewModel> a = new List<DailyTasksViewModel>();
             a.Add(r.Data);
             return a; 

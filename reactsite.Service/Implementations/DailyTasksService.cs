@@ -21,7 +21,7 @@ namespace reactsite.Service.Implementations
             _DT_Repo = dt;
             _us_Repo = us;
         }
-        public async Task<BaseResponse<DailyTasksViewModel>> GetDailyTask(int Userid)
+        public async Task<BaseResponse<DailyTasksViewModel>> GetDailyTask(long Userid)
         {
             BaseResponse<DailyTasksViewModel> baseResponse = new BaseResponse<DailyTasksViewModel>();
             try

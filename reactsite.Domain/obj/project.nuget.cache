@@ -1,8 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "GohJFQQJjcfkpRql/lgwmHQ0HxbAvFKTeLVtOm/GZ9+ocfvR1BY5KltprdRfTo4ucJdAuiPESg1PVoWj8hY+Gw==",
+  "dgSpecHash": "Ql547JNbfZVJImQDok6zYSjoeAl1TgP7k/X4GQXfn54Y558wtt2DW67AGa4KAN0xeU/SSDAI8lXbkdqSgQNN7Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\notma\\source\\repos\\ReactSite\\reactsite.Domain\\reactsite.Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\notma\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\notma\\.nuget\\packages\\microsoft.identitymodel.abstractions\\6.21.0\\microsoft.identitymodel.abstractions.6.21.0.nupkg.sha512",
+    "C:\\Users\\notma\\.nuget\\packages\\microsoft.identitymodel.logging\\6.21.0\\microsoft.identitymodel.logging.6.21.0.nupkg.sha512",
+    "C:\\Users\\notma\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.21.0\\microsoft.identitymodel.tokens.6.21.0.nupkg.sha512",
+    "C:\\Users\\notma\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
+  ],
   "logs": []
 }

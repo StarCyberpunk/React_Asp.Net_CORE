@@ -12,8 +12,8 @@ namespace reactsite.Service.Interfaces
 {
     public interface IAccountService
     {
-        Task<BaseResponse<ClaimsIdentity>> Register(RegisterViewModel rvm);
-        Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel model);
+        Task<BaseResponse<string>> Register(RegisterViewModel rvm);
+        Task<BaseResponse<string>> Login(LoginViewModel model);
         Task<BaseResponse<IEnumerable<User>>> GetAllUsers();
         Task<BaseResponse<User>> GetUser(string name);
 

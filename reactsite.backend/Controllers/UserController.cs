@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using reactsite.Domain.Entity;
+using reactsite.Domain.Helpers;
 using reactsite.Domain.ViewModels;
 using reactsite.Service.Implementations;
 using reactsite.Service.Interfaces;
@@ -11,9 +13,12 @@ namespace reactsite.backend.Controllers
     public class UserController : ControllerBase
     {
         private readonly IAccountService _ac;
+       
         public UserController(IAccountService ac)
         {
             _ac = ac;
+            
+
         }
         [HttpGet(Name = "User")]
         public async Task<IEnumerable<User>> Get()
@@ -30,10 +35,13 @@ namespace reactsite.backend.Controllers
             {
                 return BadRequest(new { message = "UNREGISTER" });
             }
-            return Ok(res);
+            return Ok(new
+            {
+                access_token=res.Data
+            });
         }
         [HttpPost("auth")]
-        public async Task<IActionResult> Authenticate(LoginViewModel lvm)
+        public async Task<IActionResult> Authenticate([FromBody] LoginViewModel lvm)
         {
             var res = await _ac.Login(lvm);
             if (res.StatusCode == Domain.Enum.StatusCode.NotFound)
@@ -44,7 +52,10 @@ namespace reactsite.backend.Controllers
             {
                 return BadRequest(new { message = "WRONGDATA" });
             }
-            return Ok(res);
+            return Ok(new
+            {
+                access_token = res.Data
+            });
         }
     }
     
