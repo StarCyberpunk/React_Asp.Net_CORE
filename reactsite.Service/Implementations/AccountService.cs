@@ -146,7 +146,7 @@ namespace reactsite.Service.Implementations
             }
         }
 
-        public async Task<BaseResponse<User>> GetUser(string name)
+        /*public async Task<BaseResponse<User>> GetUserByName(string name)
         {
             var baseResponse = new BaseResponse<User>();
             try
@@ -167,7 +167,35 @@ namespace reactsite.Service.Implementations
             catch (Exception ex)
             {
                 var z = new BaseResponse<User>();
-                z.Description = $"[GetUser]:{ex.Message}";
+                z.Description = $"[GetUserByName]:{ex.Message}";
+
+                return z;
+            }
+        }*/
+        public async Task<BaseResponse<User>> GetUserById(long id)
+        {
+            var baseResponse = new BaseResponse<User>();
+            try
+            {
+                var user = await _userRepository
+                    .Select()
+                    .Include(x=>x.Profile).FirstOrDefaultAsync(x => x.Id == id);
+                if (user == null)
+                {
+                    baseResponse.Description = "Не найдено";
+                }
+                else
+                {
+                    baseResponse.Data = user;
+                }
+                baseResponse.StatusCode = Domain.Enum.StatusCode.OK;
+                return baseResponse;
+
+            }
+            catch (Exception ex)
+            {
+                var z = new BaseResponse<User>();
+                z.Description = $"[GetUserById]:{ex.Message}";
 
                 return z;
             }
@@ -192,5 +220,7 @@ namespace reactsite.Service.Implementations
             return new JwtSecurityTokenHandler().WriteToken(token);
 
         }
+
+        
     }
 }

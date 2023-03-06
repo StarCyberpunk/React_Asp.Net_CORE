@@ -4,7 +4,7 @@ import Navbar from "./Components/Navbar";
 import {BrowserRouter, Route, Router, Link, NavLink, Routes} from 'react-router-dom';
 import MainPage from "./Components/MainPage";
 import DailyTasks from "./Components/TASKS/DailyTasks";
-import SignUp from "./Components/Login/SignUp";
+import SignUp from "./Components/Account/SignUp";
 
 
 

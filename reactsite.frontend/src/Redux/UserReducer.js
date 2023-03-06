@@ -1,23 +1,24 @@
+import Cookies from "js-cookie";
 const State ={
-    error: null,
-    loading: true,
-    items:[
-        {
             id: 0,
-            password: "string",
             login: "string",
-            role: 0,
+            role: null,
             profile: null,
             dailyTasks: null,
-            access_token:null
-        }
-    ]
-
+            access_token:null,
+    IsLoggin:false
 }
 export const UserReducer=(state=State,action)=>{
     switch (action.type){
-        case ("Update"):
-            return{...state,items: state.items.id+action.payload}
+        case ("Auth"):
+
+            return{...state, access_token: action.payload.access_token,login: action.payload.login,IsLoggin: true}
+        case ("GetDailyTasks"):
+            return {...state,dailyTasks: action.payload.DailyTasks}
+        case ("LogOut"):
+            Cookies.set('access_token',null)
+            Cookies.set('login',null)
+            return state
         default:
             return state
 

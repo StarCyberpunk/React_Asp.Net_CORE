@@ -15,8 +15,8 @@ namespace reactsite.Service.Interfaces
         Task<BaseResponse<string>> Register(RegisterViewModel rvm);
         Task<BaseResponse<string>> Login(LoginViewModel model);
         Task<BaseResponse<IEnumerable<User>>> GetAllUsers();
-        Task<BaseResponse<User>> GetUser(string name);
-
+        /*Task<BaseResponse<User>> GetUserByName(string name);*/
+        Task<BaseResponse<User>> GetUserById(long id);
 
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace reactsite.Domain.Entity
@@ -16,6 +17,7 @@ namespace reactsite.Domain.Entity
         public DateTime DateBegin { get; set; }
         public DateTime DateEnd { get; set; }
         public TypeActivity TypeActivity { get; set; }
+        [JsonIgnore]
         public virtual DailyTasks? DailyTasks { get; set; }
 
     }
