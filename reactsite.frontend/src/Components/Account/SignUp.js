@@ -6,8 +6,9 @@ import {useDispatch, useSelector} from "react-redux";
 import UserCAB from "./UserCAB";
 
 function SignUp() {
-    const flag= useSelector(state => state.reducerUser.IsLoggin)
-    if (flag){
+    const flag= Cookies.get('flag')
+
+    if (flag==='true'){
         return <div>
             <UserCAB/>
         </div>

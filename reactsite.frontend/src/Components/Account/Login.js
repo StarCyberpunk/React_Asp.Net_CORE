@@ -4,9 +4,11 @@ import {useDispatch, useSelector} from "react-redux";
 import $api from "../../http";
 import store from "../../Redux";
 import Cookies from 'js-cookie'
+import {useNavigate} from "react-router-dom";
 
 const Login =()=> {
     const dispatch=useDispatch();
+    const navigate=useNavigate();
     const selector=useSelector(state => state.reducerUser.state)
     const response=async (login, password) => {
      const  z= await fetch('/user/auth', {
@@ -18,9 +20,9 @@ const Login =()=> {
         }).catch(error => console.error(error));
      const k=await z.json();
      Cookies.set('access_token',k['access_token'])
-        Cookies.set('login',true)
+        Cookies.set('flag','true')
      dispatch({type:"Auth",payload:{access_token:k['access_token'],login:login}})
-
+        navigate("/");
     }
 
 

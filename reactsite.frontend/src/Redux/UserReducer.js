@@ -16,8 +16,8 @@ export const UserReducer=(state=State,action)=>{
         case ("GetDailyTasks"):
             return {...state,dailyTasks: action.payload.DailyTasks}
         case ("LogOut"):
-            Cookies.set('access_token',null)
-            Cookies.set('login',false)
+            Cookies.set('access_token','null')
+            Cookies.set('flag','false')
              return{...state, access_token: null,login: null,IsLoggin: false}
         default:
             return state
