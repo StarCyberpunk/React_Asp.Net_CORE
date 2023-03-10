@@ -5,10 +5,12 @@ import {BrowserRouter, Route, Router, Link, NavLink, Routes} from 'react-router-
 import MainPage from "./Components/MainPage";
 import DailyTasks from "./Components/TASKS/DailyTasks";
 import SignUp from "./Components/Account/SignUp";
+import LogOut from "./Components/Account/LogOut";
 
 
 
 function Main() {
+
     return (
 
         <div className='Main'>
@@ -19,6 +21,7 @@ function Main() {
                 <Route path="/users" element={<Users/>}/>
                 <Route path="/dailytasks" element={<DailyTasks/>}/>
                 <Route path="/signup" element={<SignUp/>}/>
+                <Route path="/logout" element={<LogOut/>}/>
             </Routes>
         </div>
         );

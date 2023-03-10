@@ -6,8 +6,6 @@ import store from "../../Redux";
 import Cookies from 'js-cookie'
 
 export default class UserCAB extends Component{
-    /*const dispatch=useDispatch();
-    const selector=useSelector(state => state.reducerUser.state)*/
     constructor(props) {
         super(props);
         this.state = {
@@ -19,7 +17,11 @@ export default class UserCAB extends Component{
     static renderRaz(items) {
 
         return (
-            <div>   </div>
+            <div>
+                <p> Имя:{items.login}</p>
+                <p> Адрес:{items.profile.address}</p>
+                <p> Возраст:{items.profile.age}</p>
+            </div>
 
 
         );
@@ -34,24 +36,24 @@ export default class UserCAB extends Component{
         console.log(this.state.items)
         return (
             <div>
-                <h1 id="tabelLabel" >Weather forecast</h1>
-                <p>This component demonstrates fetching data from the server.</p>
+                <h1 id="tabelLabel" >Личный кабинет</h1>
+
                 {contents}
             </div>
         );
     }
     async response(){
-        const  z= await fetch('/User', {
-            method: 'Get',
+        const  z= await fetch('http://localhost:5160/User', {
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
-                'Authentication': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFkbWluIiwic3ViIjoiMSIsInJvbGUiOiJBZG1pbiIsImV4cCI6MTY3ODA5Njk3NywiaXNzIjoiYXV0aFNlcnZlciIsImF1ZCI6InJlc291cmNlU2VydmVyIn0.AW_1l0bin8IPNrz43bZvl1uiTpHsBzeQZ89sKWHWk1o'
+                'Authorization': 'Bearer '+ Cookies.get('access_token')
             },
         });
         const k=await z.json();
-        console.log(k);
+
         this.setState({ items:k, loading: false });
 
     }
+
 }
 

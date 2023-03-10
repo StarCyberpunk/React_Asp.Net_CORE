@@ -10,6 +10,8 @@ function MainPage() {
     const dispatch=useDispatch();
     const id=useSelector(state => state.reducerUser.access_token)
     console.log(id);
+    const flag=Cookies.get('login')
+    console.log(flag)
 
     return (
 

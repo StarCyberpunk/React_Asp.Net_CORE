@@ -6,19 +6,18 @@ import {useDispatch, useSelector} from "react-redux";
 import UserCAB from "./UserCAB";
 
 function SignUp() {
-    const dispatch=useDispatch();
-    const IsLogin=useSelector(state => state.reducerUser.IsLoggin)
-    console.log(IsLogin)
-    return (
-            <div>
-                {
-                  IsLogin?( <UserCAB/>):(<Login/>)}
+    const flag= useSelector(state => state.reducerUser.IsLoggin)
+    if (flag){
+        return <div>
+            <UserCAB/>
+        </div>
+    }
+    else {
+        return <div>
+            <Login/>
+    </div>
+    }
 
-
-
-
-            </div>
-        );
 
 }
 

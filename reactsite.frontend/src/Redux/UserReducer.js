@@ -6,7 +6,7 @@ const State ={
             profile: null,
             dailyTasks: null,
             access_token:null,
-    IsLoggin:false
+            IsLoggin:false
 }
 export const UserReducer=(state=State,action)=>{
     switch (action.type){
@@ -17,8 +17,8 @@ export const UserReducer=(state=State,action)=>{
             return {...state,dailyTasks: action.payload.DailyTasks}
         case ("LogOut"):
             Cookies.set('access_token',null)
-            Cookies.set('login',null)
-            return state
+            Cookies.set('login',false)
+             return{...state, access_token: null,login: null,IsLoggin: false}
         default:
             return state
 

@@ -1,10 +1,13 @@
 import React from 'react';
 import {Link, NavLink} from "react-router-dom";
+import Cookies from "js-cookie";
+import {useSelector} from "react-redux";
 
 
 
 
 function Navbar() {
+    const flag=useSelector(state => state.reducerUser.IsLoggin)
     return (
         <div className='Navbar ' class="p-3 mb-2 bg-black text-white">
 
@@ -18,18 +21,43 @@ function Navbar() {
                 </li>
 
                 <li className="nav-item">
-                    <NavLink className="nav-link" to='/users'>Люди</NavLink>
+                    <NavLink className="nav-link disabled" to='/users'>Друзья</NavLink>
                 </li>
-                <li className="nav-item">
-                    <NavLink className="nav-link" to='/dailytasks'>Мой день</NavLink>
-                </li>
-                <li className="nav-item">
-                    <NavLink className="nav-link" to='/signup'>Аккаунт</NavLink>
-                </li>
+                
+                {flag?(<li className="nav-item">
+                        <NavLink className="nav-link" to='/dailytasks'>Мой день</NavLink>
+                    </li>):
+                    ( <li className="nav-item">
+                        <NavLink className="nav-link disabled" to='/dailytasks'>Мой день</NavLink>
+                    </li>)
+                }
+                {/*<li className="nav-item"><NavLink className="dropdown-item" to='/signup'>Аккаунт</NavLink></li>
+                <li className="nav-item"><NavLink className="dropdown-item" to='/logout'>Выйти</NavLink></li>*/}
+                {flag?(
+
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                               aria-expanded="false">Выпадающий список</a>
+                            <ul className="dropdown-menu">
+                                <li className="nav-item"><NavLink className="dropdown-item" to='/signup'>Аккаунт</NavLink></li>
+                                <li className="nav-item"><NavLink className="dropdown-item" to='/logout'>Выйти</NavLink></li>
+                            </ul>
+                        </li>
+
+                    ):
+                    ( <li className="nav-item">
+                        <NavLink className="nav-link" to='/signup'>Войти</NavLink>
+                    </li>)
+                }
+
                 {/*<li className="nav-item">
                     <a className="nav-link disabled">Отключенная</a>
                 </li>*/}
-                {/*<li className="nav-item dropdown">
+                {/*
+                 <li className="nav-item">
+                        <NavLink className="nav-link" to='/signup'>Аккаунт</NavLink>
+                    </li>
+                <li className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                        aria-expanded="false">Выпадающий список</a>
                     <ul className="dropdown-menu">

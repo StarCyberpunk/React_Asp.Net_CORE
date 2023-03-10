@@ -32,17 +32,18 @@ namespace reactsite.backend.Controllers
 
         [HttpGet(Name = "User")]
         [Authorize]
-        public async Task<IActionResult> GetById()
+        public async Task<User> GetById()
         {
             var res = await _ac.GetUserById(UserId);
-            if (res.StatusCode == Domain.Enum.StatusCode.NotFound)
+            return  res.Data;
+            /*if (res.StatusCode == Domain.Enum.StatusCode.NotFound)
             {
                 return BadRequest(new { message = "NotFound" });
             }
             return Ok(new
             {
                 User = res.Data
-            });
+            });*/
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterViewModel rvm)

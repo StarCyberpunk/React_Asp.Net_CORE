@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DayTasks from "./DayTasks";
 import Donut from "./Donut";
+import Cookies from "js-cookie";
 
 export default class DailyTasks extends Component {
     constructor(props) {
@@ -31,7 +32,7 @@ export default class DailyTasks extends Component {
         );
     }
     componentDidMount() {
-        this.populateData();
+        this.response();
     }
     render() {
         let contents = this.state.loading
@@ -45,11 +46,17 @@ export default class DailyTasks extends Component {
             </div>
         );
     }
-    async populateData() {
-        const response = await fetch('dailytasks');
-        const data = await response.json();
-        console.log(data);
-        this.setState({ items: data, loading: false });
+    async response(){
+        const  z= await fetch('http://localhost:5160/DailyTasks', {
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': 'Bearer '+ Cookies.get('access_token')
+            },
+        });
+        const k=await z.json();
+
+        this.setState({ items:k, loading: false });
+
     }
 
 }

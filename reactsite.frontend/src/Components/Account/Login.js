@@ -15,11 +15,14 @@ const Login =()=> {
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({"login": login, "password": password})
-        });
+        }).catch(error => console.error(error));
      const k=await z.json();
+     Cookies.set('access_token',k['access_token'])
+        Cookies.set('login',true)
      dispatch({type:"Auth",payload:{access_token:k['access_token'],login:login}})
 
     }
+
 
         return (
             <div>
