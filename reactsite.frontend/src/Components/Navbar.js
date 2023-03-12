@@ -7,7 +7,7 @@ import {useSelector} from "react-redux";
 /*Надо обновлять*/
 
 function Navbar() {
-
+    const stateflag=useSelector(state => state.reducerUser)
    const flag= Cookies.get('flag')
     console.log(flag)
     if(flag==='true'){
@@ -26,15 +26,23 @@ function Navbar() {
                     <NavLink className="nav-link disabled" to='/users'>Друзья</NavLink>
                 </li>
 
-                <li className="nav-item">
-                        <NavLink className="nav-link" to='/dailytasks'>Мой день</NavLink>
-                    </li>
+
+                <li className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-expanded="false">Активность</a>
+                    <ul className="dropdown-menu">
+                        <li className="nav-item"><NavLink className="dropdown-item" to='/dailytasks'>Мой день</NavLink>
+                        </li>
+                        <li className="nav-item"><NavLink className="dropdown-item" to='/weeklytasks'>Моя неделя</NavLink>
+                        </li>
+                    </ul>
+                </li>
 
 
 
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                               aria-expanded="false">Выпадающий список</a>
+                               aria-expanded="false">{stateflag.login}</a>
                             <ul className="dropdown-menu">
                                 <li className="nav-item"><NavLink className="dropdown-item" to='/signup'>Аккаунт</NavLink>
                                 </li>

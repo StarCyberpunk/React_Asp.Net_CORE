@@ -6,6 +6,7 @@ import MainPage from "./Components/MainPage";
 import DailyTasks from "./Components/TASKS/DailyTasks";
 import SignUp from "./Components/Account/SignUp";
 import LogOut from "./Components/Account/LogOut";
+import WeeklyTasks from "./Components/TASKS/WeeklyTasks";
 
 
 
@@ -22,6 +23,7 @@ function Main() {
                 <Route path="/dailytasks" element={<DailyTasks/>}/>
                 <Route path="/signup" element={<SignUp/>}/>
                 <Route path="/logout" element={<LogOut/>}/>
+                <Route path="/weeklytasks" element={<WeeklyTasks/>}/>
             </Routes>
         </div>
         );

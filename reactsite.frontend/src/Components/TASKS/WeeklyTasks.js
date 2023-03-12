@@ -6,7 +6,7 @@ import WeekTasks from "./WeekTasks";
 import NextTask from "./NextTask";
 import ButtonsForDayTask from "./ButtonsForDayTask";
 
-export default class DailyTasks extends Component {
+export default class WeeklyTasks extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,25 +20,16 @@ export default class DailyTasks extends Component {
         return (
 
             <div className="container-fluid" >
-                <div className="row justify-content-center">
-                <div className="col-3">
-                    <div>Следующая задача</div>
-                      <NextTask task={items[0]}/>
-                    <ButtonsForDayTask/>
-                </div>
-                <div className="col-7">
-                    <Donut />
-                </div>
-                </div>
                 <div className="row justify-content-start">
+                    <div className="col-7">
+                        <Donut />
+                    </div>
                     <div className="col-3">
-                        <div>Задачи на день</div>
-                        {items.map(item =>
-                            <DayTasks item={item}/>
-                        )}
+                        <WeekTasks tasks={items}/>
                     </div>
 
                 </div>
+
             </div>
         );
     }
@@ -48,11 +39,10 @@ export default class DailyTasks extends Component {
     render() {
         let contents = this.state.loading
             ? <p><em>Loading... </em></p>
-            : DailyTasks.render(this.state.items);
+            : WeeklyTasks.render(this.state.items);
         console.log(this.state.items)
         return (
             <div>
-                <h1 id="tabelLabel" >Мои задачи</h1>
                 {contents}
             </div>
         );
