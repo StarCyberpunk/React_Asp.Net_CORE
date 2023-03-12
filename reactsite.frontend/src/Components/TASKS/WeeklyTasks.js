@@ -16,7 +16,11 @@ export default class WeeklyTasks extends Component {
         };
     }
     static render(items) {
-
+        if(items.length==0){
+            return (<div className="container-fluid" >
+                <div>Добавить неделю</div>
+            </div>);
+        }else {
         return (
 
             <div className="container-fluid" >
@@ -31,7 +35,7 @@ export default class WeeklyTasks extends Component {
                 </div>
 
             </div>
-        );
+        );}
     }
     componentDidMount() {
         this.response();
@@ -49,10 +53,12 @@ export default class WeeklyTasks extends Component {
     }
     async response(){
         const  z= await fetch('http://localhost:5160/DailyTasks', {
+            method:'GET',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 'Authorization': 'Bearer '+ Cookies.get('access_token')
             },
+
         });
         const k=await z.json();
 

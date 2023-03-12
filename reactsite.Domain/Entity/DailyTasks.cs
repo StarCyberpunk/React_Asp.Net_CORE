@@ -14,6 +14,7 @@ namespace reactsite.Domain.Entity
         public DateTime Day { get; set; }
         [JsonIgnore]
         public User? User { get; set; }
+        public int NowActivity { get; set; }
         public List<Activity>? Activites { get; set; }
     }
 }

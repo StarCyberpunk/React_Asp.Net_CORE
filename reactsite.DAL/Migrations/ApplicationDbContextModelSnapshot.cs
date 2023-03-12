@@ -39,8 +39,14 @@ namespace reactsite.DAL.Migrations
                     b.Property<DateTime>("DateEnd")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("DoneType")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Total")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("TypeActivity")
                         .HasColumnType("int");
@@ -66,6 +72,9 @@ namespace reactsite.DAL.Migrations
                     b.Property<DateTime>("Day")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("NowActivity")
+                        .HasColumnType("int");
+
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
@@ -81,6 +90,7 @@ namespace reactsite.DAL.Migrations
                         {
                             Id = 1L,
                             Day = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NowActivity = 0,
                             UserId = 1L
                         });
                 });

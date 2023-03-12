@@ -2,6 +2,9 @@ import React from 'react';
 
 
 function NextTask({task}) {
+    try {
+
+
     return (
         <div className='WeekTasks'>
             <table className="table">
@@ -13,14 +16,13 @@ function NextTask({task}) {
                 </tr>
                 </thead>
                 <tbody>
-                {task.activites.map(act =>
                         <tr>
-                            <td>{act.name}</td>
-                            <td>{act.dateBegin}</td>
-                            <td>{act.dateEnd}</td>
+                            <td>{task.activites[task.nowActivity].name}</td>
+                            <td>{task.activites[task.nowActivity].dateBegin}</td>
+                            <td>{task.activites[task.nowActivity].dateEnd}</td>
 
                         </tr>
-                    )}
+
 
 
 
@@ -28,7 +30,9 @@ function NextTask({task}) {
             </table>
         </div>
     );
-
+    }catch (e){
+      return(  <div>Отдых </div>);
+    }
 
 
 }

@@ -16,7 +16,12 @@ export default class DailyTasks extends Component {
         };
     }
     static render(items) {
-
+        if(items.length==0){
+            return (<div className="container-fluid" >
+                <div>Добавить день</div>
+            </div>);
+        }
+        else {
         return (
 
             <div className="container-fluid" >
@@ -40,7 +45,7 @@ export default class DailyTasks extends Component {
 
                 </div>
             </div>
-        );
+        );}
     }
     componentDidMount() {
         this.response();
@@ -59,10 +64,14 @@ export default class DailyTasks extends Component {
     }
     async response(){
         const  z= await fetch('http://localhost:5160/DailyTasks', {
+            method:'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
                 'Authorization': 'Bearer '+ Cookies.get('access_token')
             },
+            body:
+                JSON.stringify({"start": new Date(),
+                    "end": new Date()})
         });
         const k=await z.json();
 

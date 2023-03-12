@@ -20,14 +20,21 @@ namespace reactsite.backend.Controllers
         {
             _dts = d;
         }
-        [HttpGet(Name = "DailyTasks")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IEnumerable<DailyTasksViewModel>> GetDailyTasks()
+        [HttpPost(Name = "DailyTasks")]
+        [Authorize]
+        public async Task<List<DailyTasks>> GetDailyTasks(DayTaskViewModel dtvm)
         {
-            var r = await _dts.GetDailyTask(UserId);
-            List<DailyTasksViewModel> a = new List<DailyTasksViewModel>();
-            a.Add(r.Data);
-            return a; 
+            var r = await _dts.GetDailyTask(UserId,dtvm);
+           
+            return r.Data; 
+        }
+        [HttpGet(Name = "DailyTasksWeekly")]
+        [Authorize]
+        public async Task<List<DailyTasks>> GetDailyTasksWeekly()
+        {
+            var r = await _dts.GetDailyTaskWeekly(UserId);
+
+            return r.Data;
         }
     }
 }

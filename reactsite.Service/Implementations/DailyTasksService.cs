@@ -6,6 +6,7 @@ using reactsite.Domain.ViewModels;
 using reactsite.Service.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,15 +22,20 @@ namespace reactsite.Service.Implementations
             _DT_Repo = dt;
             _us_Repo = us;
         }
-        public async Task<BaseResponse<DailyTasksViewModel>> GetDailyTask(long Userid)
+        public async Task<BaseResponse<List< DailyTasks>>> GetDailyTask(long Userid,DayTaskViewModel dtvm)
         {
-            BaseResponse<DailyTasksViewModel> baseResponse = new BaseResponse<DailyTasksViewModel>();
+            BaseResponse<List<DailyTasks>> baseResponse = new BaseResponse<List<DailyTasks>>();
             try
             {
+                var start = new DateTime(dtvm.start.Year, dtvm.start.Month, dtvm.start.Day, 0, 0, 0);
+                var end = new DateTime(dtvm.start.Year, dtvm.start.Month, dtvm.start.Day, 23, 59, 59);
                 var task = await _DT_Repo.Select()
-                    .Include(x => x.Activites).FirstOrDefaultAsync(x => x.UserId == Userid);
+                    .Include(x => x.Activites)
+                    .Where(x=>x.UserId==Userid)
+                    .Where(x=>x.Day>=start&&x.Day<=end)
+                    .ToListAsync();
                 
-                if (task.Activites.Count() == 0)
+                if (task.Count() == 0)
                 {
                     baseResponse.Description = "Найдено 0 эл-в";
                     baseResponse.Data = null;
@@ -37,52 +43,57 @@ namespace reactsite.Service.Implementations
                 else
                 {
                     baseResponse.Description = "";
-                    baseResponse.Data = ToVM(task);
+                    baseResponse.Data =task ;
                 }
                 baseResponse.StatusCode = Domain.Enum.StatusCode.OK;
                 return baseResponse;
             }
             catch(Exception ex)
             {
-                var z = new BaseResponse<DailyTasksViewModel>();
+                var z = new BaseResponse<List<DailyTasks>>();
                 z.Description = $"[GetDailyTasks]:{ex.Message}";
 
                 return z;
             }
             
         }
-        public DailyTasksViewModel ToVM(DailyTasks dt)
-        {
 
-            DailyTasksViewModel dwm = new DailyTasksViewModel()
-            {
-                Day = dt.Day,
-                Activites = AcToVM(dt.Activites),
-                   Id=dt.Id,
-                   UserId=dt.UserId
-                   
-                };
-            
-            return dwm;
-        }
-        public List<ActivityViewModel> AcToVM(List<Activity> a)
+        public async Task<BaseResponse<List<DailyTasks>>> GetDailyTaskWeekly(long Userid)
         {
-            List<ActivityViewModel> res = new List<ActivityViewModel>();
-            foreach(Activity aa in a)
+            BaseResponse<List<DailyTasks>> baseResponse = new BaseResponse<List<DailyTasks>>();
+            try
             {
-                ActivityViewModel t = new ActivityViewModel()
+                DateTime today = DateTime.Today;
+                var cultureStart = CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+                var weekStart = today;
+                while (weekStart.DayOfWeek != cultureStart) weekStart = weekStart.AddDays(-1);
+                var weekEnd = weekStart.AddDays(6).AddHours(23).AddMinutes(59).AddSeconds(59);
+                var task = await _DT_Repo.Select()
+                    .Include(x => x.Activites)
+                    .Where(x => x.UserId == Userid)
+                    .Where(x => x.Day >= weekStart && x.Day <= weekEnd)
+                    .ToListAsync();
+
+                if (task.Count() == 0)
                 {
-                    Id = aa.Id,
-                    Name = aa.Name,
-                    TypeActivity = aa.TypeActivity,
-                    DailyTasksId = aa.DailyTasksId,
-                    DateBegin = aa.DateBegin,
-                    DateEnd = aa.DateEnd,
-                    UserId = aa.Id
-                };
-                res.Add(t);
+                    baseResponse.Description = "Найдено 0 эл-в";
+                    baseResponse.Data = null;
+                }
+                else
+                {
+                    baseResponse.Description = "";
+                    baseResponse.Data = task;
+                }
+                baseResponse.StatusCode = Domain.Enum.StatusCode.OK;
+                return baseResponse;
             }
-            return res;
+            catch (Exception ex)
+            {
+                var z = new BaseResponse<List<DailyTasks>>();
+                z.Description = $"[GetDailyTasks]:{ex.Message}";
+
+                return z;
+            }
         }
     }
 }

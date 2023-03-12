@@ -12,6 +12,7 @@ namespace reactsite.Service.Interfaces
     public interface IDailyTasksService
     {
         /*Task<BaseResponse<bool>> CreateProfile(ProfileViewModel p);*/
-        Task<BaseResponse<DailyTasksViewModel>> GetDailyTask(long userid);
+        Task<BaseResponse<List<DailyTasks>>> GetDailyTask(long userid,DayTaskViewModel dtvm);
+        Task<BaseResponse<List<DailyTasks>>> GetDailyTaskWeekly(long userid);
     }
 }
