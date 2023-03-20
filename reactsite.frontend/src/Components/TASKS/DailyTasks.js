@@ -4,7 +4,7 @@ import Donut from "./Donut";
 import Cookies from "js-cookie";
 import WeekTasks from "./WeekTasks";
 import NextTask from "./NextTask";
-import ButtonsForDayTask from "./ButtonsForDayTask";
+
 
 export default class DailyTasks extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ export default class DailyTasks extends Component {
         };
     }
     static render(items) {
-        if(items.length==0){
+        if(items.length==null){
             return (<div className="container-fluid" >
                 <div>Добавить день</div>
             </div>);
@@ -27,9 +27,8 @@ export default class DailyTasks extends Component {
             <div className="container-fluid" >
                 <div className="row justify-content-center">
                 <div className="col-3">
-                    <div>Следующая задача</div>
                       <NextTask task={items[0]}/>
-                    <ButtonsForDayTask/>
+
                 </div>
                 <div className="col-7">
                     <Donut />
