@@ -45,8 +45,8 @@ namespace reactsite.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Total")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("Total")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("TypeActivity")
                         .HasColumnType("int");

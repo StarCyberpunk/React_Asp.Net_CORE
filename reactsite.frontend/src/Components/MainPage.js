@@ -13,6 +13,7 @@ function MainPage() {
     const flag=Cookies.get('flag')
     console.log(flag)
 
+
     return (
 
         <div className='MainPage'>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Cookies from "js-cookie";
 
 const Done=async () => {
     const  z= await fetch('/user/auth', {
@@ -13,8 +14,13 @@ const Done=async () => {
 
 }
 function CalcDate(task){
-    let duration=Math.floor( Date.parse(task.activites[task.nowActivity].dateEnd)- Date.parse(task.activites[task.nowActivity].dateBegin))
-    return duration
+
+    if(task.activites[task.nowActivity].total.toString()==="0"){
+        return  Math.floor( Date.parse(task.activites[task.nowActivity].dateEnd)- Date.parse(task.activites[task.nowActivity].dateBegin))
+    }
+    else {
+        return Math.floor( Date.parse(task.activites[task.nowActivity].dateEnd)-  task.activites[task.nowActivity].total- Date.parse(task.activites[task.nowActivity].dateBegin))
+    }
 }
 const CountDown = ({ millisec = 0 }) => {
     let r=millisec;
@@ -40,6 +46,7 @@ const CountDown = ({ millisec = 0 }) => {
         } else {
             setTime([h, m, s - 1]);
         }
+
     };
 
     const reset = () => {
@@ -59,10 +66,15 @@ const CountDown = ({ millisec = 0 }) => {
                 .toString()
                 .padStart(2, '0')}:${s.toString().padStart(2, '0')}`}</p>
             <div>{over ? "Time's up!" : ''}</div>
-            <button onClick={() => setPaused(!paused)}>
+            <div className='BFDT'>
+                <button onClick={()=>Done()}>Done</button>
+                <button>Skip</button>
+
+            {/*<button onClick={() => setPaused(!paused)}>
                 {paused ? 'Resume' : 'Pause'}
             </button>
-            <button onClick={() => reset()}>Restart</button>
+            <button onClick={() => reset()}>Restart</button>*/}
+            </div>
         </div>
     );
 };
@@ -81,31 +93,8 @@ function NextTask({task}) {
                     </p>
                 </div>
             </div>
-            <table className="table">
-                <thead>
-                <tr>
-                    <th scope="col">Название</th>
-                    <th scope="col">Дата начала</th>
-                    <th scope="col">Дата конца</th>
-                </tr>
-                </thead>
-                <tbody>
-                        <tr>
-                            <td>{task.activites[task.nowActivity].name}</td>
-                            <td>{task.activites[task.nowActivity].dateBegin}</td>
-                            <td>{task.activites[task.nowActivity].dateEnd}</td>
-
-                        </tr>
 
 
-
-
-                </tbody>
-            </table>
-            <div className='BFDT'>
-                <button onClick={()=>Done()}>Done</button>
-                <button>Skip</button>
-            </div>
         </div>
     );
     }catch (e){

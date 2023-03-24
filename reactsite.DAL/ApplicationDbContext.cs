@@ -10,7 +10,7 @@ namespace reactsite.DAL
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 : base(options)
         {
-            
+           
         }
 
         public DbSet<User> Users { get; set; }
@@ -18,7 +18,7 @@ namespace reactsite.DAL
         public DbSet<DailyTasks> DailyTasks { get; set; }
         public DbSet<Activity> Activity { get; set; }
 
-       
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

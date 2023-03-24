@@ -4,6 +4,8 @@ import Donut from "./Donut";
 import Cookies from "js-cookie";
 import WeekTasks from "./WeekTasks";
 import NextTask from "./NextTask";
+import DayPlan from "./Planing/DayPlan";
+
 
 
 export default class DailyTasks extends Component {
@@ -16,9 +18,11 @@ export default class DailyTasks extends Component {
         };
     }
     static render(items) {
-        if(items.length==null){
+
+        if(items.length===0){
             return (<div className="container-fluid" >
-                <div>Добавить день</div>
+                <div><DayPlan/></div>
+                <div>План на неделю</div>
             </div>);
         }
         else {
@@ -48,7 +52,9 @@ export default class DailyTasks extends Component {
     }
     componentDidMount() {
         this.response();
+
     }
+
     render() {
         let contents = this.state.loading
             ? <p><em>Loading... </em></p>
@@ -72,9 +78,15 @@ export default class DailyTasks extends Component {
                 JSON.stringify({"start": new Date(),
                     "end": new Date()})
         });
-        const k=await z.json();
+        try {
+            const k=await z.json();
+            this.setState({ items:k, loading: false });
+        }catch (e){
+            this.setState({ items:[], loading: false });
+        }
 
-        this.setState({ items:k, loading: false });
+
+
 
     }
 

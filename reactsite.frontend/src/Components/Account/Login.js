@@ -19,8 +19,8 @@ const Login =()=> {
             body: JSON.stringify({"login": login, "password": password})
         }).catch(error => console.error(error));
      const k=await z.json();
-     Cookies.set('access_token',k['access_token'])
-        Cookies.set('flag','true')
+     Cookies.set('access_token',k['access_token'],{ expires: 1 })
+        Cookies.set('flag','true',{ expires: 1 })
      dispatch({type:"Auth",payload:{access_token:k['access_token'],login:login}})
         navigate("/");
     }
