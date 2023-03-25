@@ -36,5 +36,23 @@ namespace reactsite.backend.Controllers
 
             return r.Data;
         }
+        [HttpPost(Name ="DailyTaskNewDay")]
+        [Authorize]
+        public async Task<IActionResult> SetDailyTasks(DailyTasks d)
+        {
+            var res = await _dts.NewDailyTask(UserId,d);
+            if (res.StatusCode == Domain.Enum.StatusCode.NotFound)
+            {
+                return BadRequest(new { message = "NOTFOUND" });
+            }
+            else if (res.StatusCode == Domain.Enum.StatusCode.WrongData)
+            {
+                return BadRequest(new { message = "WRONGDATA" });
+            }
+            return Ok(new
+            {
+                access_token = res.Data
+            });
+        }
     }
 }

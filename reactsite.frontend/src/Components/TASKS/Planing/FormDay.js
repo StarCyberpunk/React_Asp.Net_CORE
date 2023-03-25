@@ -45,7 +45,7 @@ const FormDay=({response})=>{
                 <select value={TypeActivity}
                         onChange={(e)=>setTypeActivity(e.target.value)}
                         className="form-select" id="inputGroupSelect01">
-                    <option selected >Выберите</option>
+                    <option defaultValue selected >Выберите</option>
                     <option value="0">Работа</option>
                     <option value="1">Саморазвитие</option>
                     <option value="2">Отдых</option>

@@ -10,21 +10,34 @@ function DayPlan() {
 
     const dispatch=useDispatch();
     const navigate=useNavigate();
-    const selector=useSelector(state => state.reducerUser.state)
+
     const response=async (Name,DateBegin,DateEnd,TypeActivity) => {
         console.log(Name,DateBegin,DateEnd,TypeActivity)
-        /*const  z= await fetch('/user/auth', {
+        let DB=new Date().toJSON()
+        const  z= await fetch('/DailyTask/AddActivity', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
-            body: JSON.stringify({"login": login, "password": password})
+            body: JSON.stringify({
+            "id": 0,
+                "userId": 0,
+                "day": new Date.now().toJSON(),
+                "activites": [
+                {
+                    "id": 0,
+                    "dailyTasksId": 0,
+                    "userId": 0,
+                    "name": "string",
+                    "dateBegin": "2023-02-23T18:30:42.024Z",
+                    "dateEnd": "2023-02-23T18:30:42.024Z",
+                    "typeActivity": 0
+                }
+            ]
+            })
         }).catch(error => console.error(error));
         const k=await z.json();
-        Cookies.set('access_token',k['access_token'],{ expires: 1 })
-        Cookies.set('flag','true',{ expires: 1 })
-        dispatch({type:"Auth",payload:{access_token:k['access_token'],login:login}})
-        navigate("/");*/
+
     }
     
 

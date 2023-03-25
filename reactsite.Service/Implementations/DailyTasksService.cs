@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using reactsite.DAL.Interfaces;
 using reactsite.Domain.Entity;
+using reactsite.Domain.Enum;
 using reactsite.Domain.Response;
 using reactsite.Domain.ViewModels;
 using reactsite.Service.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -17,6 +19,7 @@ namespace reactsite.Service.Implementations
     {
         private readonly IBaseRepository<DailyTasks> _DT_Repo;
         private readonly IBaseRepository<User> _us_Repo;
+        private readonly IBaseRepository<Activity> _ac_Repo;
         public DailyTasksService(IBaseRepository<DailyTasks> dt, IBaseRepository<User> us)
         {
             _DT_Repo = dt;
@@ -90,6 +93,71 @@ namespace reactsite.Service.Implementations
             catch (Exception ex)
             {
                 var z = new BaseResponse<List<DailyTasks>>();
+                z.Description = $"[GetDailyTasks]:{ex.Message}";
+
+                return z;
+            }
+        }
+
+        public async Task<BaseResponse<string>> NewDailyTask(long UserId, DailyTasks d)
+        {
+            BaseResponse<string> baseResponse = new BaseResponse<string>();
+            try
+            {
+                var task = await _DT_Repo.Select().Include(x=>x.Activites).Where(x => x.UserId == UserId).Where(x => x.Day == d.Day).FirstOrDefaultAsync();
+                var us = await _us_Repo.Select().Where(x => x.Id == UserId).FirstOrDefaultAsync();
+                if (task != null)
+                {
+                    if (task.Activites != null)
+                    {
+                        foreach (var z in task.Activites)
+                        {
+                            
+                            var t = await _ac_Repo.Select().Where(x => x.Id == z.Id).FirstOrDefaultAsync();
+                            if (t == null)
+                            {
+                                await _ac_Repo.Create(z);
+                            }
+                            else
+                            {
+                                 await _ac_Repo.Update(z);
+                            }
+                            
+                        }
+                    }
+                    else
+                    {
+                        if (d.Activites != null)
+                        {
+                            foreach(var e in d.Activites)
+                            {
+                                await _ac_Repo.Create(e);
+                            }
+                        }
+                    }
+                    return new BaseResponse<string>()
+                    {
+                        Description = "Обновили",
+                        StatusCode = StatusCode.OK
+                    };
+                }
+                var reaa = new DailyTasks()
+                {
+                    Day = d.Day,
+                    Activites = d.Activites,
+                    NowActivity = 0,
+                    UserId = UserId,
+                    User = us
+                };
+                await _DT_Repo.Create(reaa);
+
+                
+                baseResponse.StatusCode = Domain.Enum.StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                var z = new BaseResponse<string>();
                 z.Description = $"[GetDailyTasks]:{ex.Message}";
 
                 return z;
