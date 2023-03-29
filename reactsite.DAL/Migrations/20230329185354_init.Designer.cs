@@ -12,8 +12,8 @@ using reactsite.DAL;
 namespace reactsite.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230320123906_TotalEdi")]
-    partial class TotalEdi
+    [Migration("20230329185354_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,9 @@ namespace reactsite.DAL.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Total")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("TypeActivity")
                         .HasColumnType("int");

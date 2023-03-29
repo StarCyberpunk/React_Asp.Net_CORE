@@ -68,8 +68,8 @@ builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IBaseRepository<DailyTasks>, DailyTasksRepository>();
 builder.Services.AddScoped<IDailyTasksService, DailyTasksService>();
 
-/*builder.Services.AddScoped<IBaseRepository<Activity>, ActivityRepository>();
-builder.Services.AddScoped<IActivityService, ActivityService>();*/
+builder.Services.AddScoped<IBaseRepository<Activity>, ActivityRepository>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
 
 builder.Services.AddControllers();
 

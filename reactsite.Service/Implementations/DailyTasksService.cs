@@ -20,10 +20,11 @@ namespace reactsite.Service.Implementations
         private readonly IBaseRepository<DailyTasks> _DT_Repo;
         private readonly IBaseRepository<User> _us_Repo;
         private readonly IBaseRepository<Activity> _ac_Repo;
-        public DailyTasksService(IBaseRepository<DailyTasks> dt, IBaseRepository<User> us)
+        public DailyTasksService(IBaseRepository<DailyTasks> dt, IBaseRepository<User> us,IBaseRepository<Activity> ac)
         {
             _DT_Repo = dt;
             _us_Repo = us;
+            _ac_Repo = ac;
         }
         public async Task<BaseResponse<List< DailyTasks>>> GetDailyTask(long Userid,DayTaskViewModel dtvm)
         {
@@ -163,7 +164,8 @@ namespace reactsite.Service.Implementations
                 {
                     var z = new Activity
                     {
-                        DailyTasksId = 10001,
+                        DailyTasks=task,
+                        DailyTasksId = task.Id,
                         DateBegin = DateTime.Parse(t.DateBegin),
                         DateEnd = DateTime.Parse(t.DateEnd),
                         DoneType = 0,
