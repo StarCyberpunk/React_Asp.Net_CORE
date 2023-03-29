@@ -14,9 +14,12 @@ namespace reactsite.Domain.ViewModels
         public long DailyTasksId { get; set; }
         public long UserId { get; set; }
         public string? Name { get; set; }
-        public DateTime DateBegin { get; set; }
-        public DateTime DateEnd { get; set; }
+        public string DateBegin { get; set; }
+        public string DateEnd { get; set; }
+        public string DoneType { get; set; }
+        public long Total { get; set; }
         public TypeActivity TypeActivity { get; set; }
+        
         
     }
 }

@@ -13,27 +13,30 @@ function DayPlan() {
 
     const response=async (Name,DateBegin,DateEnd,TypeActivity) => {
         console.log(Name,DateBegin,DateEnd,TypeActivity)
-        let DB=new Date().toJSON()
-        const  z= await fetch('/DailyTask/AddActivity', {
+
+        const  z= await fetch('http://localhost:5160/DailyTasks/NewOrUpdate', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': 'Bearer '+ Cookies.get('access_token')
             },
             body: JSON.stringify({
-            "id": 0,
+                "id": 0,
                 "userId": 0,
-                "day": new Date.now().toJSON(),
+                "day": new Date().toLocaleDateString(),
                 "activites": [
-                {
-                    "id": 0,
-                    "dailyTasksId": 0,
-                    "userId": 0,
-                    "name": "string",
-                    "dateBegin": "2023-02-23T18:30:42.024Z",
-                    "dateEnd": "2023-02-23T18:30:42.024Z",
-                    "typeActivity": 0
-                }
-            ]
+                    {
+                        "id": 0,
+                        "dailyTasksId": 0,
+                        "userId": 0,
+                        "name": Name,
+                        "dateBegin": "2023-03-28T"+DateBegin+":31.834Z",
+                        "dateEnd": "2023-03-28T"+DateEnd+":31.834Z",
+                        "doneType": "0",
+                        "total": 0,
+                        "typeActivity": parseInt( TypeActivity)
+                    }
+                ]
             })
         }).catch(error => console.error(error));
         const k=await z.json();

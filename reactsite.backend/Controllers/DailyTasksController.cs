@@ -20,14 +20,6 @@ namespace reactsite.backend.Controllers
         {
             _dts = d;
         }
-        [HttpPost(Name = "DailyTasks")]
-        [Authorize]
-        public async Task<List<DailyTasks>> GetDailyTasks(DayTaskViewModel dtvm)
-        {
-            var r = await _dts.GetDailyTask(UserId,dtvm);
-           
-            return r.Data; 
-        }
         [HttpGet(Name = "DailyTasksWeekly")]
         [Authorize]
         public async Task<List<DailyTasks>> GetDailyTasksWeekly()
@@ -36,9 +28,18 @@ namespace reactsite.backend.Controllers
 
             return r.Data;
         }
-        [HttpPost(Name ="DailyTaskNewDay")]
+        [HttpPost( "GetAll")]
         [Authorize]
-        public async Task<IActionResult> SetDailyTasks(DailyTasks d)
+        public async Task<List<DailyTasks>> GetDailyTasks(DayTaskViewModel dtvm)
+        {
+            var r = await _dts.GetDailyTask(UserId,dtvm);
+           
+            return r.Data; 
+        }
+        
+        [HttpPost("NewOrUpdate")]
+        [Authorize]
+        public async Task<IActionResult> NewDailyTasks(DailyTasksViewModel d)
         {
             var res = await _dts.NewDailyTask(UserId,d);
             if (res.StatusCode == Domain.Enum.StatusCode.NotFound)

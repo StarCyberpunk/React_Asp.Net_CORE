@@ -68,7 +68,7 @@ export default class DailyTasks extends Component {
         );
     }
     async response(){
-        const  z= await fetch('http://localhost:5160/DailyTasks', {
+        const  z= await fetch('http://localhost:5160/DailyTasks/GetAll', {
             method:'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',

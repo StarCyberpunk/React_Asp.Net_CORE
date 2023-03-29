@@ -11,7 +11,7 @@ namespace reactsite.Domain.ViewModels
     {
         public long Id { get; set; }
         public long UserId { get; set; }
-        public DateTime Day { get; set; }
+        public string Day { get; set; }
         public List<ActivityViewModel>? Activites { get; set; }
     }
 }

@@ -14,6 +14,6 @@ namespace reactsite.Service.Interfaces
         /*Task<BaseResponse<bool>> CreateProfile(ProfileViewModel p);*/
         Task<BaseResponse<List<DailyTasks>>> GetDailyTask(long userid,DayTaskViewModel dtvm);
         Task<BaseResponse<List<DailyTasks>>> GetDailyTaskWeekly(long userid);
-        Task<BaseResponse<string>> NewDailyTask(long userid, DailyTasks d);
+        Task<BaseResponse<string>> NewDailyTask(long userid, DailyTasksViewModel d);
     }
 }

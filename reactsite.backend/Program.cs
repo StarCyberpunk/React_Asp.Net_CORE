@@ -68,8 +68,8 @@ builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IBaseRepository<DailyTasks>, DailyTasksRepository>();
 builder.Services.AddScoped<IDailyTasksService, DailyTasksService>();
 
-builder.Services.AddScoped<IBaseRepository<Activity>, ActivityRepository>();
-builder.Services.AddScoped<IActivityService, ActivityService>();
+/*builder.Services.AddScoped<IBaseRepository<Activity>, ActivityRepository>();
+builder.Services.AddScoped<IActivityService, ActivityService>();*/
 
 builder.Services.AddControllers();
 
@@ -77,7 +77,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.AddSwaggerGen(c => {
+    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+    c.IgnoreObsoleteActions();
+    c.IgnoreObsoleteProperties();
+    c.CustomSchemaIds(type => type.FullName);
+});
 
 var app = builder.Build();
 

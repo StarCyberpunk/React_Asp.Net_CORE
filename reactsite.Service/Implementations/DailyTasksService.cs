@@ -99,12 +99,12 @@ namespace reactsite.Service.Implementations
             }
         }
 
-        public async Task<BaseResponse<string>> NewDailyTask(long UserId, DailyTasks d)
+        public async Task<BaseResponse<string>> NewDailyTask(long UserId, DailyTasksViewModel d)
         {
             BaseResponse<string> baseResponse = new BaseResponse<string>();
             try
             {
-                var task = await _DT_Repo.Select().Include(x=>x.Activites).Where(x => x.UserId == UserId).Where(x => x.Day == d.Day).FirstOrDefaultAsync();
+                var task = await _DT_Repo.Select().Include(x=>x.Activites).Where(x => x.UserId == UserId).Where(x => x.Day == DateTime.Parse(d.Day)).FirstOrDefaultAsync();
                 var us = await _us_Repo.Select().Where(x => x.Id == UserId).FirstOrDefaultAsync();
                 if (task != null)
                 {
@@ -129,10 +129,11 @@ namespace reactsite.Service.Implementations
                     {
                         if (d.Activites != null)
                         {
-                            foreach(var e in d.Activites)
+                            /*var t = null;
+                            foreach(var e in t)
                             {
                                 await _ac_Repo.Create(e);
-                            }
+                            }*/
                         }
                     }
                     return new BaseResponse<string>()
@@ -143,15 +144,39 @@ namespace reactsite.Service.Implementations
                 }
                 var reaa = new DailyTasks()
                 {
-                    Day = d.Day,
-                    Activites = d.Activites,
+
+                    Day = DateTime.Parse( d.Day),
+                    Activites = null,
                     NowActivity = 0,
                     UserId = UserId,
                     User = us
                 };
+              
+                
+
                 await _DT_Repo.Create(reaa);
 
-                
+
+                 task = await _DT_Repo.Select().Include(x => x.Activites).Where(x => x.UserId == UserId).Where(x => x.Day == DateTime.Parse(d.Day)).FirstOrDefaultAsync();
+                var r = new List<Activity>();
+                foreach (var t in d.Activites)
+                {
+                    var z = new Activity
+                    {
+                        DailyTasksId = 10001,
+                        DateBegin = DateTime.Parse(t.DateBegin),
+                        DateEnd = DateTime.Parse(t.DateEnd),
+                        DoneType = 0,
+                        Name = t.Name,
+                        Total = t.Total,
+                        TypeActivity = t.TypeActivity,
+                        UserId = UserId,
+                    };
+                    await _ac_Repo.Create(z);
+                    r.Add(z);
+                }
+                task.Activites = r;
+                await _DT_Repo.Update(task);
                 baseResponse.StatusCode = Domain.Enum.StatusCode.OK;
                 return baseResponse;
             }
