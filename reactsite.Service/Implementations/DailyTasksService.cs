@@ -105,23 +105,43 @@ namespace reactsite.Service.Implementations
             BaseResponse<string> baseResponse = new BaseResponse<string>();
             try
             {
-                var task = await _DT_Repo.Select().Include(x=>x.Activites).Where(x => x.UserId == UserId).Where(x => x.Day == DateTime.Parse(d.Day)).FirstOrDefaultAsync();
+                var task = await _DT_Repo.Select()
+                    .Include(x=>x.Activites)
+                    .Where(x => x.UserId == UserId)
+                    .Where(x => x.Day == DateTime.Parse(d.Day))
+                    .FirstOrDefaultAsync();
                 var us = await _us_Repo.Select().Where(x => x.Id == UserId).FirstOrDefaultAsync();
                 if (task != null)
                 {
                     if (task.Activites != null)
                     {
-                        foreach (var z in task.Activites)
+                        foreach (var z in d.Activites)
                         {
-                            
-                            var t = await _ac_Repo.Select().Where(x => x.Id == z.Id).FirstOrDefaultAsync();
+                            var DB = DateTime.Parse(z.DateBegin,null, System.Globalization.DateTimeStyles.RoundtripKind);
+                            var DE= DateTime.Parse(z.DateEnd, null, System.Globalization.DateTimeStyles.RoundtripKind);
+                            var t = await _ac_Repo.Select()
+                                .Where(x => x.Name==z.Name)
+                                .Where(x=>x.DateBegin.Month==DB.Month&&x.DateBegin.Day==DB.Day)
+                                .FirstOrDefaultAsync();
+                            var zt = new Activity
+                            {
+                                DailyTasks = task,
+                                DailyTasksId = task.Id,
+                                DateBegin = DateTime.Parse(z.DateBegin, null, System.Globalization.DateTimeStyles.RoundtripKind),
+                                DateEnd = DateTime.Parse(z.DateEnd, null, System.Globalization.DateTimeStyles.RoundtripKind),
+                                DoneType = 0,
+                                Name = z.Name,
+                                Total = z.Total,
+                                TypeActivity = z.TypeActivity,
+                                UserId = UserId,
+                            };
                             if (t == null)
                             {
-                                await _ac_Repo.Create(z);
+                                await _ac_Repo.Create(zt);
                             }
                             else
                             {
-                                 await _ac_Repo.Update(z);
+                                 await _ac_Repo.Update(zt);
                             }
                             
                         }
@@ -130,11 +150,23 @@ namespace reactsite.Service.Implementations
                     {
                         if (d.Activites != null)
                         {
-                            /*var t = null;
-                            foreach(var e in t)
+                            foreach (var t in d.Activites)
                             {
-                                await _ac_Repo.Create(e);
-                            }*/
+                                var z = new Activity
+                                {
+                                    DailyTasks = task,
+                                    DailyTasksId = task.Id,
+                                    DateBegin = DateTime.Parse(t.DateBegin, null, System.Globalization.DateTimeStyles.RoundtripKind),
+                                    DateEnd = DateTime.Parse(t.DateEnd, null, System.Globalization.DateTimeStyles.RoundtripKind),
+                                    DoneType = 0,
+                                    Name = t.Name,
+                                    Total = t.Total,
+                                    TypeActivity = t.TypeActivity,
+                                    UserId = UserId,
+                                };
+                                await _ac_Repo.Create(z);
+                                
+                            }
                         }
                     }
                     return new BaseResponse<string>()
@@ -160,6 +192,7 @@ namespace reactsite.Service.Implementations
 
                  task = await _DT_Repo.Select().Include(x => x.Activites).Where(x => x.UserId == UserId).Where(x => x.Day == DateTime.Parse(d.Day)).FirstOrDefaultAsync();
                 var r = new List<Activity>();
+                if (d.Activites != null) { 
                 foreach (var t in d.Activites)
                 {
                     var z = new Activity
@@ -179,6 +212,7 @@ namespace reactsite.Service.Implementations
                 }
                 task.Activites = r;
                 await _DT_Repo.Update(task);
+                }
                 baseResponse.StatusCode = Domain.Enum.StatusCode.OK;
                 return baseResponse;
             }

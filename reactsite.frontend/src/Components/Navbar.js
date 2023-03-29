@@ -35,6 +35,8 @@ function Navbar() {
                         </li>
                         <li className="nav-item"><NavLink className="dropdown-item" to='/weeklytasks'>Моя неделя</NavLink>
                         </li>
+                        <li className="nav-item"><NavLink className="dropdown-item" to='/addplan'>Составить план</NavLink>
+                        </li>
                     </ul>
                 </li>
 

@@ -16,10 +16,10 @@ const Done=async () => {
 function CalcDate(task){
 
     if(task.activites[task.nowActivity].total.toString()==="0"){
-        return  Math.floor( Date.parse(task.activites[task.nowActivity].dateEnd)- Date.parse(task.activites[task.nowActivity].dateBegin))
+        return  Math.floor( Date.parse(task.activites[task.nowActivity].dateEnd)- Date.now())
     }
     else {
-        return Math.floor( Date.parse(task.activites[task.nowActivity].dateEnd)-  task.activites[task.nowActivity].total- Date.parse(task.activites[task.nowActivity].dateBegin))
+        return Math.floor( Date.parse(task.activites[task.nowActivity].dateEnd)-  task.activites[task.nowActivity].total- Date.now())
     }
 }
 const CountDown = ({ millisec = 0 }) => {
@@ -49,11 +49,7 @@ const CountDown = ({ millisec = 0 }) => {
 
     };
 
-    const reset = () => {
-        setTime([parseInt(hours), parseInt(minutes), parseInt(seconds)]);
-        setPaused(false);
-        setOver(false);
-    };
+
 
     React.useEffect(() => {
         const timerID = setInterval(() => tick(), 1000);
@@ -85,7 +81,7 @@ function NextTask({task}) {
         <div className='WeekTasks'>
 
             <div className="card text-bg-primary mb-3">
-                <div className="card-header">Следующая задача:{task.activites[task.nowActivity].name}</div>
+                <div className="card-header">Текущая задача:{task.activites[task.nowActivity].name}</div>
                 <div className="card-body">
                     <p className="card-text">
                         <a></a>

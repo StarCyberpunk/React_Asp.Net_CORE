@@ -34,16 +34,21 @@ export default class DailyTasks extends Component {
                       <NextTask task={items[0]}/>
 
                 </div>
-                <div className="col-7">
+                <div className="col-8">
                     <Donut />
+
                 </div>
                 </div>
-                <div className="row justify-content-start">
-                    <div className="col-3">
+                <div className="row justify-content-center">
+                    <div className="col-3 ">
                         <div>Задачи на день</div>
                         {items.map(item =>
                             <DayTasks item={item}/>
                         )}
+                    </div>
+                    <div className="col-5">
+                        <h3>Добавить задачу на сегодня</h3>
+                        <DayPlan/>
                     </div>
 
                 </div>

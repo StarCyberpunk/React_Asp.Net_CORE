@@ -12,7 +12,7 @@ function DayPlan() {
     const navigate=useNavigate();
 
     const response=async (Name,DateBegin,DateEnd,TypeActivity) => {
-        console.log(Name,DateBegin,DateEnd,TypeActivity)
+        console.log()
 
         const  z= await fetch('http://localhost:5160/DailyTasks/NewOrUpdate', {
             method: 'POST',
@@ -30,8 +30,8 @@ function DayPlan() {
                         "dailyTasksId": 0,
                         "userId": 0,
                         "name": Name,
-                        "dateBegin": "2023-03-28T"+DateBegin+":31.834Z",
-                        "dateEnd": "2023-03-28T"+DateEnd+":31.834Z",
+                        "dateBegin": new Date().toLocaleDateString().slice(6,10) +"-"+new Date().toLocaleDateString().slice(3,5)+"-"+new Date().toLocaleDateString().slice(0,2) +"T"+DateBegin+":00.00Z",
+                        "dateEnd": new Date().toLocaleDateString().slice(6,10) +"-"+new Date().toLocaleDateString().slice(3,5)+"-"+new Date().toLocaleDateString().slice(0,2) +"T"+DateEnd+":00.00Z",
                         "doneType": "0",
                         "total": 0,
                         "typeActivity": parseInt( TypeActivity)
