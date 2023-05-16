@@ -13,7 +13,7 @@ function CreatePlan() {
 
     const response=async (Name,DateBegin,DateEnd,TypeActivity) => {
         console.log()
-
+nm
         const  z= await fetch('http://localhost:5160/DailyTasks/NewOrUpdate', {
             method: 'POST',
             headers: {

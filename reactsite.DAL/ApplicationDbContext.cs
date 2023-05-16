@@ -17,6 +17,7 @@ namespace reactsite.DAL
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<DailyTasks> DailyTasks { get; set; }
         public DbSet<Activity> Activity { get; set; }
+        public DbSet<DayTasks> DayTasks { get; set; }
 
 
 
@@ -89,19 +90,29 @@ namespace reactsite.DAL
             {
                 builder.ToTable("DailyTasks").HasKey(x => x.Id);
 
+
                 builder.HasData(new DailyTasks()
                 {
                     Id = 1,
                     UserId = 1
                 });
+                
+            });
+            modelBuilder.Entity<DayTasks>(builder =>
+            {
+                builder.ToTable("DayTasks").HasKey(x => x.Id);
+
+                builder.HasOne(r => r.DailyTasks).WithMany(r => r.DayTasks)
+                    .HasForeignKey(r => r.DailyTasksId);
+
             });
 
             modelBuilder.Entity<Activity>(builder =>
             {
                 builder.ToTable("Activity").HasKey(x => x.Id);
 
-                builder.HasOne(r => r.DailyTasks).WithMany(t => t.Activites)
-                    .HasForeignKey(r => r.DailyTasksId);
+                builder.HasOne(r => r.DayTasks).WithMany(t => t.Activites)
+                    .HasForeignKey(r => r.DayTaskId);
             });
 
 

@@ -11,7 +11,7 @@ namespace reactsite.Domain.Entity
     public class Activity
     {
         public long Id { get; set; }
-        public long DailyTasksId { get; set; }
+        public long DayTaskId { get; set; }
         public long UserId { get; set; }
         public string? Name { get; set; }
         public long Total { get; set; }
@@ -20,7 +20,7 @@ namespace reactsite.Domain.Entity
         public TypeActivity TypeActivity { get; set; }
         public TypeDoneActivity DoneType { get; set; }
         [JsonIgnore]
-        public virtual DailyTasks? DailyTasks { get; set; }
+        public virtual DayTasks? DayTasks { get; set; }
 
     }
 }

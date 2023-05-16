@@ -18,8 +18,8 @@ export default class DailyTasks extends Component {
         };
     }
     static render(items) {
-
-        if(items.length===0){
+        console.log(items)
+        if(items==[]){
             return (<div className="container-fluid" >
                 <div><DayPlan/></div>
                 <div>План на неделю</div>
@@ -31,7 +31,7 @@ export default class DailyTasks extends Component {
             <div className="container-fluid" >
                 <div className="row justify-content-center">
                 <div className="col-3">
-                      <NextTask task={items[0]}/>
+                      <NextTask task={items.dayTasks[0]}/>
 
                 </div>
                 <div className="col-8">
@@ -42,9 +42,8 @@ export default class DailyTasks extends Component {
                 <div className="row justify-content-center">
                     <div className="col-3 ">
                         <div>Задачи на день</div>
-                        {items.map(item =>
-                            <DayTasks item={item}/>
-                        )}
+                            <DayTasks item={items.dayTasks[0]}/>
+
                     </div>
                     <div className="col-5">
                         <h3>Добавить задачу на сегодня</h3>

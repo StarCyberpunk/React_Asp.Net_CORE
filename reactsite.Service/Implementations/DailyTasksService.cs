@@ -26,20 +26,19 @@ namespace reactsite.Service.Implementations
             _us_Repo = us;
             _ac_Repo = ac;
         }
-        public async Task<BaseResponse<List< DailyTasks>>> GetDailyTask(long Userid,DayTaskViewModel dtvm)
+        public async Task<BaseResponse< DailyTasks>> GetDailyTask(long Userid,DayTaskViewModel dtvm)
         {
-            BaseResponse<List<DailyTasks>> baseResponse = new BaseResponse<List<DailyTasks>>();
+            BaseResponse<DailyTasks> baseResponse = new BaseResponse<DailyTasks>();
             try
             {
                 var start = new DateTime(dtvm.start.Year, dtvm.start.Month, dtvm.start.Day, 0, 0, 0);
                 var end = new DateTime(dtvm.start.Year, dtvm.start.Month, dtvm.start.Day, 23, 59, 59);
                 var task = await _DT_Repo.Select()
-                    .Include(x => x.Activites)
-                    .Where(x=>x.UserId==Userid)
-                    .Where(x=>x.Day>=start&&x.Day<=end)
-                    .ToListAsync();
+                    .Include(x => x.DayTasks)
+                    .ThenInclude(x => x.Activites.Where(t => t.DateBegin > start && t.DateEnd < end && t.UserId == Userid))
+                    .Where(x => x.UserId == Userid).FirstOrDefaultAsync();
                 
-                if (task.Count() == 0)
+                if (task == null)
                 {
                     baseResponse.Description = "Найдено 0 эл-в";
                     baseResponse.Data = null;
@@ -54,7 +53,7 @@ namespace reactsite.Service.Implementations
             }
             catch(Exception ex)
             {
-                var z = new BaseResponse<List<DailyTasks>>();
+                var z = new BaseResponse<DailyTasks>();
                 z.Description = $"[GetDailyTasks]:{ex.Message}";
 
                 return z;
@@ -62,7 +61,7 @@ namespace reactsite.Service.Implementations
             
         }
 
-        public async Task<BaseResponse<List<DailyTasks>>> GetDailyTaskWeekly(long Userid)
+       /* public async Task<BaseResponse<List<DailyTasks>>> GetDailyTaskWeekly(long Userid)
         {
             BaseResponse<List<DailyTasks>> baseResponse = new BaseResponse<List<DailyTasks>>();
             try
@@ -73,9 +72,10 @@ namespace reactsite.Service.Implementations
                 while (weekStart.DayOfWeek != cultureStart) weekStart = weekStart.AddDays(-1);
                 var weekEnd = weekStart.AddDays(6).AddHours(23).AddMinutes(59).AddSeconds(59);
                 var task = await _DT_Repo.Select()
-                    .Include(x => x.Activites)
+                    .Include(x => x.DayTasks)
+                    .ThenInclude(x => x.Activites.Where(t => t.DateBegin == weekStart && t.DateEnd == weekEnd && t.UserId == Userid))
                     .Where(x => x.UserId == Userid)
-                    .Where(x => x.Day >= weekStart && x.Day <= weekEnd)
+                    
                     .ToListAsync();
 
                 if (task.Count() == 0)
@@ -106,14 +106,14 @@ namespace reactsite.Service.Implementations
             try
             {
                 var task = await _DT_Repo.Select()
-                    .Include(x=>x.Activites)
+                    .Include(x=>x.DayTasks.Where(x=>x.Date== DateTime.Parse(d.Day)))
+                    .ThenInclude(x => x.Activites)
                     .Where(x => x.UserId == UserId)
-                    .Where(x => x.Day == DateTime.Parse(d.Day))
                     .FirstOrDefaultAsync();
                 var us = await _us_Repo.Select().Where(x => x.Id == UserId).FirstOrDefaultAsync();
                 if (task != null)
                 {
-                    if (task.Activites != null)
+                    if (task.DayTasks != null)
                     {
                         foreach (var z in d.Activites)
                         {
@@ -223,6 +223,6 @@ namespace reactsite.Service.Implementations
 
                 return z;
             }
-        }
+        }*/
     }
 }

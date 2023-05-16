@@ -30,14 +30,14 @@ namespace reactsite.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("DailyTasksId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("DateBegin")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateEnd")
                         .HasColumnType("datetime2");
+
+                    b.Property<long>("DayTaskId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("DoneType")
                         .HasColumnType("int");
@@ -56,7 +56,7 @@ namespace reactsite.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DailyTasksId");
+                    b.HasIndex("DayTaskId");
 
                     b.ToTable("Activity", (string)null);
                 });
@@ -68,12 +68,6 @@ namespace reactsite.DAL.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("Day")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NowActivity")
-                        .HasColumnType("int");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -89,10 +83,38 @@ namespace reactsite.DAL.Migrations
                         new
                         {
                             Id = 1L,
-                            Day = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NowActivity = 0,
                             UserId = 1L
                         });
+                });
+
+            modelBuilder.Entity("reactsite.Domain.Entity.DayTasks", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("DailyTasksId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NowActivity")
+                        .HasColumnType("int");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DailyTasksId");
+
+                    b.ToTable("DayTasks", (string)null);
                 });
 
             modelBuilder.Entity("reactsite.Domain.Entity.Profile", b =>
@@ -172,13 +194,13 @@ namespace reactsite.DAL.Migrations
 
             modelBuilder.Entity("reactsite.Domain.Entity.Activity", b =>
                 {
-                    b.HasOne("reactsite.Domain.Entity.DailyTasks", "DailyTasks")
+                    b.HasOne("reactsite.Domain.Entity.DayTasks", "DayTasks")
                         .WithMany("Activites")
-                        .HasForeignKey("DailyTasksId")
+                        .HasForeignKey("DayTaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DailyTasks");
+                    b.Navigation("DayTasks");
                 });
 
             modelBuilder.Entity("reactsite.Domain.Entity.DailyTasks", b =>
@@ -190,6 +212,17 @@ namespace reactsite.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("reactsite.Domain.Entity.DayTasks", b =>
+                {
+                    b.HasOne("reactsite.Domain.Entity.DailyTasks", "DailyTasks")
+                        .WithMany("DayTasks")
+                        .HasForeignKey("DailyTasksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DailyTasks");
                 });
 
             modelBuilder.Entity("reactsite.Domain.Entity.Profile", b =>
@@ -204,6 +237,11 @@ namespace reactsite.DAL.Migrations
                 });
 
             modelBuilder.Entity("reactsite.Domain.Entity.DailyTasks", b =>
+                {
+                    b.Navigation("DayTasks");
+                });
+
+            modelBuilder.Entity("reactsite.Domain.Entity.DayTasks", b =>
                 {
                     b.Navigation("Activites");
                 });
