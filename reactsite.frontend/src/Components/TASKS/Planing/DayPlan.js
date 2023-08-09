@@ -40,6 +40,7 @@ function DayPlan() {
             })
         }).catch(error => console.error(error));
         const k=await z.json();
+        navigate("/");
 
     }
     

@@ -19,7 +19,7 @@ export default class DailyTasks extends Component {
     }
     static render(items) {
         console.log(items)
-        if(items==[]){
+        if(items.dayTasks.length===0){
             return (<div className="container-fluid" >
                 <div><DayPlan/></div>
                 <div>План на неделю</div>
@@ -35,7 +35,7 @@ export default class DailyTasks extends Component {
 
                 </div>
                 <div className="col-8">
-                    <Donut />
+                    <Donut props={items.dayTasks}/>
 
                 </div>
                 </div>

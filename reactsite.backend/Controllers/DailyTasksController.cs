@@ -20,14 +20,14 @@ namespace reactsite.backend.Controllers
         {
             _dts = d;
         }
-        /*[HttpGet(Name = "DailyTasksWeekly")]
+        [HttpGet(Name = "DailyTasksWeekly")]
         [Authorize]
         public async Task<List<DailyTasks>> GetDailyTasksWeekly()
         {
             var r = await _dts.GetDailyTaskWeekly(UserId);
 
             return r.Data;
-        }*/
+        }
         [HttpPost( "GetAll")]
         [Authorize]
         public async Task<DailyTasks> GetDailyTasks(DayTaskViewModel dtvm)
@@ -36,12 +36,12 @@ namespace reactsite.backend.Controllers
            
             return r.Data; 
         }
-        
-        /*[HttpPost("NewOrUpdate")]
+
+        [HttpPost("NewOrUpdate")]
         [Authorize]
         public async Task<IActionResult> NewDailyTasks(DailyTasksViewModel d)
         {
-            var res = await _dts.NewDailyTask(UserId,d);
+            var res = await _dts.NewDailyTask(UserId, d);
             if (res.StatusCode == Domain.Enum.StatusCode.NotFound)
             {
                 return BadRequest(new { message = "NOTFOUND" });
@@ -54,6 +54,6 @@ namespace reactsite.backend.Controllers
             {
                 access_token = res.Data
             });
-        }*/
+        }
     }
 }

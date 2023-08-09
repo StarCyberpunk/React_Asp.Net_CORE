@@ -15,7 +15,7 @@ function Navbar() {
 
             <ul className="nav nav-tabs">
                 <div className="col-5">
-                    <h2>Название</h2>
+                    <h2>DOGLNOW</h2>
                 </div>
 
                 <li className="nav-item">

@@ -18,8 +18,9 @@ function MainPage() {
 
         <div className='MainPage'>
             <div className="container">
-                <h2>Я главная
+                <h2>Данный сайт посвящен выполнению задач(Работает только с включенным сервером)
                 </h2>
+                <img src="https://stihi.ru/pics/2020/02/19/8869.jpg"/>
             </div>
         </div>
     );
